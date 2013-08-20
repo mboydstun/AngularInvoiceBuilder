@@ -1,0 +1,26 @@
+input
+{
+  outline: none;
+  border:none !important;
+  box-shadow:none !important;
+}
+
+
+input:hover {
+	background-color: LightYellow;
+}
+
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#logo {
+	visibility: hidden;
+}
+
+@media print {
+	#deleteButton, #addButton{
+		visibility: hidden;
+	}
+}

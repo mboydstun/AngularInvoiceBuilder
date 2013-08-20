@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" ng-app> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" ng-app> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body ng-controller="InvoiceCtrl">
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="#">Angular Invoice Generator</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+                <div class="row">
+                    <div class="span3">
+                        <input class="input-large" type="text" id="invoiceNumber" placeholder="00001" ng-model="invoice.invoice_number">
+                        <input class="input-large" type="text" ng-model="invoice.invoice_date">
+                    </div>
+
+                    <div>
+                       <a class="span3 offset6" ng-click='openFileDialog()'><img id="companyLogo" src="img/logoPlaceholder.gif" alt="Logo"/></a>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="span3">
+                        <input class="input-xlarge" type="text" id="clientName" ng-model="invoice.client.name">
+                        <input class="input-xlarge" type="text" id="clientCompany" ng-model="invoice.client.company">
+                        <input class="input-xlarge" type="text" id="clientAddress" ng-model="invoice.client.address">
+                        <input class="input-xlarge" type="text" id="clientCity" ng-model="invoice.client.city">
+                        <input class="input-xlarge" type="text" id="clientZip" ng-model="invoice.client.zip">
+                    </div>
+                    <div class="span4 offset5">
+                        <input class="span4 text-right" type="text" id="companyName" ng-model="invoice.company.name">
+                        <input class="span4 text-right" type="text" id="companyCompany" ng-model="invoice.company.company">
+                        <input class="span4 text-right" type="text" id="companyAddress" ng-model="invoice.company.address">
+                        <input class="span4 text-right" type="text" id="companyCity" ng-model="invoice.company.city">
+                        <input class="span4 text-right" type="text" id="companyZip" ng-model="invoice.company.zip">
+                    </div>
+                </div>
+
+
+               <div class="row">
+                 <table class="table span12">
+                  <tr>
+                      <th></th>
+                      <th>Description</th>
+                      <th>Qty</th>
+                      <th>Cost</th>
+                      <th>Total</th>
+                  </tr>
+                  <tr ng:repeat="item in invoice.items" >
+                      <td><a id="deleteButton" href ng-click="removeItem(item)" class="btn btn-danger">X</a></td>
+                      <td><input ng:model="item.description" placeholder="Description" type="text"></td>
+                      <td><input ng:model="item.quantity" ng:required ng:validate="integer" placeholder="1" type="number"></td>
+                      <td><input ng:model="item.price" ng:required ng:validate="number" placeholder="$0.00" type="number" pattern="^\d+(\.|\,)\d{2}$"></td>
+                      <td align="right">{{item.price * item.quantity | currency}}</td>
+                  </tr>
+                    <tr>
+                      <td colspan="5"><a id="addButton" class="btn btn-primary" href ng:click="addItem()" >Add Row</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                      <td align="right" class="pull-right">
+                        Total:
+                      </td>
+                      <td align="right">
+                        {{invoiceTotal() | currency}}
+                      </td>
+                  </tr>
+                </table>
+               </div>
+
+                <hr>
+
+                <footer>
+                    <p>&copy; Company 2012</p>
+                </footer>
+                   <input id="logo"
+                   ng-model="photo"
+                   onchange="angular.element(this).scope().fileChanged(this)"
+                   type="file" accept="image/*" />
+        </div> <!-- /container -->
+
+        <script src="js/vendor/jquery-1.10.1.min.js"></script>
+        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/main.js"></script>
+
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+
+    </body>
+</html>
